@@ -18,61 +18,49 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Social media site</a>
-    </nav>
     <div class="container-fluid">
         <div class="row">
-            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar p-2">
                 <div class="sidebar-sticky">
+                    <a class="navbar-brand" href="#">Social media site</a>
                     <ul class="nav nav-pills flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#ß">Home<span class="visually-hidden">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Explore</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Friends</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Profile</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Settings</a>
-                        </li>
+                        <li class="nav-item"><a class="nav-link" href="#">Home<span class="visually-hidden">(current)</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Explore</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Friends</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Profile</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
                     </ul>
                 </div>
             </nav>
+
+            <main class="col-md-6 d-none d-md-block bg-light p-2">
+                {% block content %}{% endblock %}
+            </main>
+
+            <footer class="col-md-4 d-none d-md-block bg-light sidebar p-2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h5>About</h5>
+                            <ul class="list-unstyled">
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">Contact Us</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3">
+                            <h5>Resources</h5>
+                            <ul class="list-unstyled">
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">Terms of Service</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
         </div>
     </div>
-
-
-    <!-- Template block content -->
-    <main>
-        {% block content %}{% endblock %}
-    </main>
-
-    <footer class="bg-light py-3 mt-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <h5>About</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h5>Resources</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
 
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
