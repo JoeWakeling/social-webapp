@@ -7,13 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <!-- Page title -->
     {% if title %}
-    <title>{{ title }}</title>
+        <title>{{ title }}</title>
     {% else %}
-    <title> No title specified</title>
+        <title> No title specified</title>
     {% endif %}
 </head>
 
@@ -23,39 +24,23 @@
 
             <nav class="col-md-2 d-none d-md-block bg-light">
                 <div class="sticky-top p-2">
-                    <a class="navbar-brand" href="#">Social media site</a>
-                    <ul class="nav-pills flex-column">
-                        <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Explore</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Friends</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Profile</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
-                    </ul>
-                    <div class="card-header-pills dropup" id="profile-card">
-                        <a href="#" class="d-flex align-items-center dropdown-toggle" data-bs-toggle="dropdown">
-                            <img src="/static/images/default-profile-img.jpg" width="40" height="40" class="rounded-circle">
-                            <span class="d-none d-sm-inline mx-2">Username</span>
-                        </a>
-                        <ul class="dropdown-menu text-small">
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
-                            <li><a class="dropdown-item" href="#">Settings</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/logout">Sign out</a></li>
-                        </ul>
-                    </div>
+                    {% block nav %}
+                    {% include "/partials/nav.html" %}
+                    {% endblock nav %}
                 </div>
             </nav>
 
             <main class="col-md-6 d-none d-md-block bg-light p-2">
-                {% block content %}{% endblock %}
+                {% block content %}
+                {% endblock %}
             </main>
 
             <footer class="col-md-4 d-none d-md-block bg-light">
                 <div class="sticky-top p-2">
                     <div class="card" id="login-card">
                         <div class="card-body">
-                            {% block login -%}
-                            {% include "/partials/login.html" %}
+                            {% block login %}
+                                {% include "/partials/login.html" %}
                             {% endblock login %}
                         </div>
                     </div>
@@ -81,17 +66,28 @@
         </div>
     </div>
 
+    <div>
+        {% block signup %}
+            {% include "/modals/signup-modal.html" %}
+        {% endblock signup %}
+    </div>
+
+
     <!-- JQuery -->
-    <script   src="https://code.jquery.com/jquery-3.6.1.js"   integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="   crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+            crossorigin="anonymous"></script>
     <!-- Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+            crossorigin="anonymous"></script>
     <!-- Bootstrap-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+            crossorigin="anonymous"></script>
     <!-- JS for navbar -->
     <script src="/static/js/nav.js"></script>
     <!-- JS for authentication -->
     <script src="/static/js/auth.js"></script>
-
 </body>
 
 </html>
