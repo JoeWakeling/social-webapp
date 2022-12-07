@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_login import LoginManager, current_user
+from flask_login import LoginManager
 
 # Create Flask instance
 app = Flask(__name__)
@@ -11,7 +11,7 @@ app.config.from_object('config')
 # Create app database object instance
 db = SQLAlchemy(app)
 # Create Migrate instance
-migrate = Migrate(app, db)
+migrate = Migrate(app, db, render_as_batch=True)
 
 # Create login manager instance
 login_manager = LoginManager()

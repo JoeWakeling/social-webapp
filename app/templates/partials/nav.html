@@ -1,7 +1,7 @@
 <a class="navbar-brand" href="#">Social media site</a>
 <ul class="nav-pills flex-column">
-    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-    <li class="nav-item"><a class="nav-link" href="#">Explore</a></li>
+    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+    <li class="nav-item"><a class="nav-link" href="/friends">Explore</a></li>
     <li class="nav-item"><a class="nav-link" href="#">Friends</a></li>
     <li class="nav-item"><a class="nav-link" href="#">Profile</a></li>
     <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
@@ -9,7 +9,7 @@
 <div class="card-header-pills dropup" id="profile-card">
     <a href="#" class="d-flex align-items-center dropdown-toggle" data-bs-toggle="dropdown">
         <img src="/static/images/default-profile-img.jpg" width="40" height="40" class="rounded-circle">
-        <span class="d-none d-sm-inline mx-2" id ="profile-card-username">Username</span>
+        <span class="d-none d-sm-inline mx-2" id ="profile-card-username">{{ username }}</span>
     </a>
     <ul class="dropdown-menu text-small">
         <li><a class="dropdown-item" href="#">Profile</a></li>

@@ -1,6 +1,7 @@
 from app import app, db, models
 from flask import render_template, request, redirect
 from flask_login import login_user, logout_user, login_required, current_user
+from sqlalchemy import desc
 
 
 # Route to handle user login
@@ -62,7 +63,49 @@ def auth_check():
         return "Not logged in"
 
 
+# Route to handle user posting
+@app.route("/post", methods=["GET", "POST"])
+def post():
+    if current_user.is_authenticated:
+        # Get user's post text (body) from form
+        body = request.form.get("post-body")
+        # Create new post object from models
+        new_post = models.Post(poster_id=current_user.id, body=body)
+        # Add and Commit post object to database
+        db.session.add(new_post)
+        db.session.commit()
+        # New post saved to db, redirect to home
+        return redirect("/", code=302)
+    else:
+        # User not logged in, can't post
+        return redirect("/", code=302)
+
+
 # Route to display homepage
 @app.route("/")
 def index():
-    return render_template("home.html", title="home")
+    # Get username for profile card
+    if current_user.is_authenticated:
+        username = current_user.username
+    else:
+        username = "Not logged in"
+    # Get all posts to display on homescreen
+    posts = models.Post.query\
+        .with_entities(models.User.username, models.Post.time_posted, models.Post.body)\
+        .join(models.User, models.Post.poster_id == models.User.id)\
+        .order_by(desc(models.Post.time_posted))
+    return render_template("posts.html", title="Home", username=username, posts=posts)
+
+
+# Route to display list of user's friends
+@app.route("/friends")
+@login_required
+def friends():
+    # Get username for profile card
+    if current_user.is_authenticated:
+        username = current_user.username
+    else:
+        username = "Not logged in"
+    # Get friends of user
+    all_friends = current_user.friends.all()
+    return render_template("friends.html", title="Friends", username=username, friends=all_friends)

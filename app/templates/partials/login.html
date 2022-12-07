@@ -1,20 +1,13 @@
 <form action="/login" method="POST">
-  <!-- Username-->
-  <div class="form-outline">
-    <input type="text" id="username" name="username" class="form-control" />
-    <label class="form-label" for="username">Username</label>
-  </div>
+    <!-- Username-->
+    <input type="text" id="username" name="username" class="form-control" placeholder="Username" /=-      11        1           >
+    <!-- Password -->
+    <input type="password" id="password" name="password" class="form-control" placeholder="Password"/>
 
-  <!-- Password -->
-  <div class="form-outline">
-    <input type="password" id="password" name="password" class="form-control"/>
-    <label class="form-label" for="password">Password</label>
-  </div>
+    <!-- Submit button -->
+    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
 
-  <!-- Submit button -->
-  <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-
-  <!-- Register button -->
+    <!-- Register button -->
     <p>Don't have an account?
         <button type="button" class="btn btn-block" data-bs-toggle="modal" data-bs-target="#signup-modal">
             Register
