@@ -52,7 +52,7 @@ def signup():
 
 
 # Route to check login state
-@app.route("/auth_check")
+@app.route("/auth-check")
 def auth_check():
     # Check if user's id in session
     if current_user.is_authenticated:
@@ -63,8 +63,24 @@ def auth_check():
         return "Not logged in"
 
 
+# Route to handle adding a friend
+@login_required
+@app.route("/add-friend/<new_friend_username>", methods=["GET", "POST"])
+def add_friend(new_friend_username):
+    # Get user object of new friend
+    new_friend = models.User.query.filter_by(username=new_friend_username).first()
+    if new_friend is None:
+        # Invalid new friend username
+        return "User to add as friend not found"
+    else:
+        # User found, add friendship to database
+        current_user.friends.append(new_friend)
+        db.session.commit()
+        return redirect("/", code=302)
+
+
 # Route to handle user posting
-@app.route("/post", methods=["GET", "POST"])
+@app.route("/add", methods=["GET", "POST"])
 def post():
     if current_user.is_authenticated:
         # Get user's post text (body) from form

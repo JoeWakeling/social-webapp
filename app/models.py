@@ -40,9 +40,3 @@ class Post(db.Model):
     poster_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     time_posted = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     body = db.Column(db.String(300), unique=True, nullable=False)
-
-# CREATE FRIENDSHIP:
-# user1 = User.query.get(1)
-# user2 = User.query.get(2)
-# user1.friends.append(user2)
-# db.session.commit()

@@ -1,6 +1,10 @@
  <div class="card">
      <div class="card-body">
-             <img src="/static/images/default-profile-img.jpg" width="40" height="40" class="rounded-circle">
-             <span class="d-none d-sm-inline mx-2" id ="profile-card-username">{{profile_owner.username}}</span>
+         <img src="/static/images/default-profile-img.jpg" width="40" height="40" class="rounded-circle">
+         <span class="d-none d-sm-inline mx-2" id ="profile-card-username">{{profile_owner.username}}</span>
+         <!-- Add friend button -->
+         <form action="/add-friend/{{ profile_owner.username }}" method="POST">
+            <button type="submit" class="btn btn-primary">Add friend</button>
+        </form>
      </div>
  </div>
