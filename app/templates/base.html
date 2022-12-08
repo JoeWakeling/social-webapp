@@ -22,18 +22,21 @@
     <div class="container-fluid">
         <div class="row">
 
+            <nav class="col-md-1 d-none d-md-block bg-white">
+            </nav>
+
             <nav class="col-md-2 d-none d-md-block bg-light">
                 <div class="sticky-top p-2">
                     {% include "/partials/nav.html" %}
                 </div>
             </nav>
 
-            <main class="col-md-6 d-none d-md-block bg-light p-2">
+            <main class="col-md-5 d-none d-md-block bg-light p-2">
                 {% block content %}
                 {% endblock content %}
             </main>
 
-            <footer class="col-md-4 d-none d-md-block bg-light">
+            <footer class="col-md-3 d-none d-md-block bg-light">
                 <div class="sticky-top p-2">
                     {% include "/cards/login.html" %}
                     <div class="row">
@@ -54,6 +57,9 @@
                     </div>
                 </div>
             </footer>
+
+            <nav class="col-md-1 d-none d-md-block bg-white">
+            </nav>
 
         </div>
     </div>
