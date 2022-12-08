@@ -1,15 +1,9 @@
 {% extends "base.html" %}
-{% block content_block %}
+{% block content %}
 
     <!-- Display card for every post passed in render_template(posts=posts) -->
     {%  for friend in friendList %}
-        <div class="card">
-                <div class="card-body">
-                <h4>@{{post.username}}</h4>
-                <p>{{post.time_posted}}</p>
-                <p>{{post.body}}</p>
-            </div>
-        </div>
+        {% include "/cards/post.html" %}s
     {% endfor %}
 
-{% endblock content_block %}
+{% endblock content %}

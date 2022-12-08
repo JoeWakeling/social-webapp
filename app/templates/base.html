@@ -24,26 +24,18 @@
 
             <nav class="col-md-2 d-none d-md-block bg-light">
                 <div class="sticky-top p-2">
-                    {% block nav_block %}
                     {% include "/partials/nav.html" %}
-                    {% endblock nav_block %}
                 </div>
             </nav>
 
             <main class="col-md-6 d-none d-md-block bg-light p-2">
-                {% block content_block %}
-                {% endblock content_block %}
+                {% block content %}
+                {% endblock content %}
             </main>
 
             <footer class="col-md-4 d-none d-md-block bg-light">
                 <div class="sticky-top p-2">
-                    <div class="card" id="login-card">
-                        <div class="card-body">
-                            {% block login_block %}
-                                {% include "/partials/login.html" %}
-                            {% endblock login_block %}
-                        </div>
-                    </div>
+                    {% include "/cards/login.html" %}
                     <div class="row">
                         <div class="col-md-3">
                             <h5>About</h5>
@@ -67,9 +59,7 @@
     </div>
 
     <div>
-        {% block signup_block %}
-            {% include "/modals/signup-modal.html" %}
-        {% endblock signup_block %}
+        {% include "/modals/signup.html" %}
     </div>
 
 

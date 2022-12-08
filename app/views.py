@@ -84,7 +84,7 @@ def post():
 # Route to display homepage
 @app.route("/")
 def index():
-    # Get username for profile card
+    # Get username for nav profile card
     if current_user.is_authenticated:
         username = current_user.username
     else:
@@ -94,18 +94,48 @@ def index():
         .with_entities(models.User.username, models.Post.time_posted, models.Post.body)\
         .join(models.User, models.Post.poster_id == models.User.id)\
         .order_by(desc(models.Post.time_posted))
-    return render_template("posts.html", title="Home", username=username, posts=posts)
+    return render_template("posts.html",
+                           title="Home",
+                           username=username,
+                           posts=posts)
 
 
 # Route to display list of user's friends
 @app.route("/friends")
 @login_required
 def friends():
-    # Get username for profile card
-    if current_user.is_authenticated:
-        username = current_user.username
-    else:
-        username = "Not logged in"
+    # Get username for nav profile card
+    username = current_user.username
     # Get friends of user
     all_friends = current_user.friends.all()
-    return render_template("friends.html", title="Friends", username=username, friends=all_friends)
+    return render_template("friends.html",
+                           title="Friends",
+                           username=username,
+                           friends=all_friends)
+
+
+# Route to display user's profile
+@app.route("/profile/<profile_owner_username>")
+@login_required
+def profile(profile_owner_username):
+    # Get username for nav profile card
+    username = current_user.username
+    # Get user object of profile owner
+    profile_owner = models.User.query.filter_by(username=profile_owner_username).first()
+    if profile_owner is None:
+        # Invalid username in url
+        return "User not found"
+    else:
+        # Username in url found, get profile owner's posts
+        posts = models.Post.query \
+            .with_entities(models.Post.poster_id, models.User.username, models.Post.time_posted, models.Post.body) \
+            .filter_by(poster_id=profile_owner.id) \
+            .join(models.User, models.Post.poster_id == models.User.id) \
+            .order_by(desc(models.Post.time_posted))
+        # Render profile page
+        return render_template("profile.html",
+                               title="Profile",
+                               username=username,
+                               profile_owner=profile_owner,
+                               posts=posts)
+
