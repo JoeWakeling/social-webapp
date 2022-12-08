@@ -2,7 +2,7 @@
 function checkLoginState() {
   // Send AJAX request to /auth_check route
   $.ajax({
-    url: '/auth_check',
+    url: '/auth-check',
     type: 'GET',
     success: function(response) {
       // Check if user logged in
