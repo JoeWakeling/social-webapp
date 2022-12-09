@@ -113,6 +113,7 @@ def index():
         .order_by(desc(models.Post.time_posted))
     return render_template("posts.html",
                            title="Home",
+                           content_heading="Your timeline",
                            username=username,
                            posts=posts)
 
@@ -129,6 +130,7 @@ def explore():
         .order_by(desc(models.Post.time_posted))
     return render_template("posts.html",
                            title="Explore",
+                           content_heading="All posts",
                            username=username,
                            posts=posts)
 
@@ -143,6 +145,7 @@ def friends():
     all_friends = current_user.friends.all()
     return render_template("friends.html",
                            title="Friends",
+                           content_heading="Your friends",
                            username=username,
                            friends=all_friends)
 
@@ -168,6 +171,7 @@ def profile(profile_owner_username):
         # Render profile page
         return render_template("profile.html",
                                title="Profile",
+                               content_heading=profile_owner.username + "'s profile",
                                username=username,
                                profile_owner=profile_owner,
                                posts=posts)
