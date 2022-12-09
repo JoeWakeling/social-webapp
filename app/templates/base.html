@@ -5,11 +5,11 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/custom-style.css')}}">
     <!-- Page title -->
     {% if title %}
         <title>{{ title }}</title>
@@ -22,17 +22,19 @@
     <div class="container-fluid">
         <div class="row">
 
-            <nav class="col-md-1 d-none d-md-block bg-white">
-            </nav>
+            <div class="col-md-1 d-none d-md-block bg-white"></div>
 
             <nav class="col-md-2 d-none d-md-block bg-light">
-                <div class="sticky-top p-2">
+                <div class="sticky-top p-2 vh-100">
                     {% include "/partials/nav.html" %}
+                    <div class="col-bottom p-2">
+                        {% include "/cards/profile-menu.html" %}
+                    </div>
                 </div>
             </nav>
 
             <main class="col-md-5 d-none d-md-block bg-light p-2">
-                <h3>{{  content_heading }}</h3>
+                <h4>{{  content_heading }}</h4>
                 {% block content %}
                 {% endblock content %}
             </main>
@@ -40,35 +42,15 @@
             <footer class="col-md-3 d-none d-md-block bg-light">
                 <div class="sticky-top p-2">
                     {% include "/cards/login.html" %}
-                    <div class="row">
-                        <div class="col-md-3">
-                            <h5>About</h5>
-                            <ul class="list-unstyled">
-                                <li><a href="#">About Us</a></li>
-                                <li><a href="#">Contact Us</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-md-3">
-                            <h5>Resources</h5>
-                            <ul class="list-unstyled">
-                                <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">Terms of Service</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                    {% include "/partials/footer-links.html" %}
                 </div>
             </footer>
 
-            <nav class="col-md-1 d-none d-md-block bg-white">
-            </nav>
-
+            <div class="col-md-1 d-none d-md-block bg-white"></div>
         </div>
     </div>
 
-    <div>
-        {% include "/modals/signup.html" %}
-    </div>
-
+    {% include "/modals/signup.html" %}
 
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="

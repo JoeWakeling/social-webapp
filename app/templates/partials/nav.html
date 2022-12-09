@@ -1,20 +1,13 @@
-<a class="navbar-brand" href="#">Social media site</a>
-<ul class="nav-pills flex-column">
-    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-    <li class="nav-item"><a class="nav-link" href="/explore">Explore</a></li>
-    <li class="nav-item"><a class="nav-link" href="/friends">Friends</a></li>
-    <li class="nav-item"><a class="nav-link" href="/profile/{{ username }}">Profile</a></li>
-    <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
-</ul>
-<div class="card-header-pills dropup" id="profile-card">
-    <a href="#" class="d-flex align-items-center dropdown-toggle" data-bs-toggle="dropdown">
-        <img src="/static/images/default-profile-img.jpg" width="40" height="40" class="rounded-circle">
-        <span class="d-none d-sm-inline mx-2" id ="profile-card-username">{{ username }}</span>
+<!-- Website logo -->
+<a class="navbar-brand" href="/">
+    <span class="navbar-text">Soci@l</span>
+</a>
+<!-- Navigation links -->
+{% set nav_links = ["home", "explore", "friends", "profile", "settings"] %}
+{% set auth_required = ["auth-required", "", "auth-required", "auth-required", ""] %}
+{%  for nav_link in nav_links %}
+    <a class="nav-link {{ auth_required[loop.index0] }}" href="/{{ nav_link }}">
+        <img class="me-2" src="/static/images/{{ nav_link }}-icon.png" width="25" height="25" alt="Profile Image">
+        <span class="navbar-text">{{ nav_link | capitalize }}</span>
     </a>
-    <ul class="dropdown-menu text-small">
-        <li><a class="dropdown-item" href="#">Profile</a></li>
-        <li><a class="dropdown-item" href="#">Settings</a></li>
-        <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="/logout">Sign out</a></li>
-    </ul>
-</div>
+{% endfor %}

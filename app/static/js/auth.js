@@ -8,16 +8,13 @@ function checkLoginState() {
       // Check if user logged in
       if (response === "Not logged in") {
         // User not logged in, show login card, hide user profile card & new post card
-        $('#login-card').show();
-        $('#profile-card').hide();
-        $('#new-post-card').hide();
-
+        $('.not-auth-required').show();
+        $('.auth-required').hide();
 
       } else {
         // User logged in, hide login card, show user profile card & new post card
-        $('#login-card').hide();
-        $('#profile-card').show();
-        $('#new-post-card').show();
+        $('.auth-required').show();
+        $('.not-auth-required').hide();
       }
     }
   });

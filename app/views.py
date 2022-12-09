@@ -15,7 +15,7 @@ def login():
     if user is not None and user.check_password(password):
         login_user(user)
         # Login successful, redirect to home
-        return redirect("/", code=302)
+        return redirect("/home", code=302)
     else:
         # Login failed, return false
         return "Login failed"
@@ -27,7 +27,7 @@ def login():
 def logout():
     logout_user()
     # Logout successful, redirect to home
-    return redirect("/", code=302)
+    return redirect("/explore", code=302)
 
 
 # Route to handle user signup
@@ -45,7 +45,7 @@ def signup():
         db.session.add(new_user)
         db.session.commit()
         # Signup successful, return true
-        return redirect("/", code=302)
+        return redirect("/home", code=302)
     else:
         # Signup failed, return false
         return "Signup failed"
@@ -76,7 +76,7 @@ def add_friend(new_friend_username):
         # User found, add friendship to database
         current_user.friends.append(new_friend)
         db.session.commit()
-        return redirect("/", code=302)
+        return redirect("/home", code=302)
 
 
 # Route to handle user posting
@@ -91,21 +91,25 @@ def post():
         db.session.add(new_post)
         db.session.commit()
         # New post saved to db, redirect to home
-        return redirect("/", code=302)
+        return redirect("/home", code=302)
     else:
         # User not logged in, can't post
-        return redirect("/", code=302)
+        return redirect("/explore", code=302)
 
-
-# Route to display homepage with user's timeline
+# Route to redirect index to homepage
 @app.route("/")
 def index():
+    return redirect("/home")
+
+# Route to display homepage with user's timeline
+@app.route("/home")
+@login_required
+def home():
     # Get username for nav profile card
-    username = current_user.username
-    # Get friends of user
+    username = current_user.username if current_user.is_authenticated else "Not logged in"
     # Get list of friend's ids
     friend_ids = [x.id for x in current_user.friends.all()]
-    # Get all posts by user's friend to display timeline
+    # Get all posts by user's friends to display timeline
     posts = models.Post.query\
         .with_entities(models.User.username, models.Post.time_posted, models.Post.body) \
         .filter(models.Post.poster_id.in_(friend_ids))\
@@ -122,7 +126,7 @@ def index():
 @app.route("/explore")
 def explore():
     # Get username for nav profile card
-    username = current_user.username
+    username = current_user.username if current_user.is_authenticated else "Not logged in"
     # Get all posts to display on homescreen
     posts = models.Post.query\
         .with_entities(models.User.username, models.Post.time_posted, models.Post.body)\
@@ -140,7 +144,7 @@ def explore():
 @login_required
 def friends():
     # Get username for nav profile card
-    username = current_user.username
+    username = current_user.username if current_user.is_authenticated else "Not logged in"
     # Get friends of user
     all_friends = current_user.friends.all()
     return render_template("friends.html",
@@ -150,12 +154,20 @@ def friends():
                            friends=all_friends)
 
 
+# Route to redirect /profile to /profile/username
+@login_required
+@app.route("/profile")
+def profile_redirect():
+    username = current_user.username if current_user.is_authenticated else "Not logged in"
+    return redirect("/profile/"+username)
+
+
 # Route to display user's profile
 @app.route("/profile/<profile_owner_username>")
 @login_required
 def profile(profile_owner_username):
     # Get username for nav profile card
-    username = current_user.username
+    username = current_user.username if current_user.is_authenticated else "Not logged in"
     # Get user object of profile owner
     profile_owner = models.User.query.filter_by(username=profile_owner_username).first()
     if profile_owner is None:
@@ -175,4 +187,3 @@ def profile(profile_owner_username):
                                username=username,
                                profile_owner=profile_owner,
                                posts=posts)
-

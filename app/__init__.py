@@ -1,3 +1,4 @@
+from os import path
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -17,10 +18,10 @@ migrate = Migrate(app, db, render_as_batch=True)
 login_manager = LoginManager()
 # Configure login manager for flask app
 login_manager.init_app(app)
-# Redirect to homepage if unauthenticated user tries accessing a route decorated by @login_required
-login_manager.login_view = "/"
-# Redirect to home page when reauthentication needed
-login_manager.refresh_view = "/"
+# Redirect to explore if unauthenticated user tries accessing a route decorated by @login_required
+login_manager.login_view = "/explore"
+# Redirect to explore page when reauthentication needed
+login_manager.refresh_view = "/explore"
 # If hash of IP and useragent doesn't match hash of previous requests, delete session
 login_manager.session_protection = "strong"
 
