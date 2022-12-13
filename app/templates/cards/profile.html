@@ -1,10 +1,31 @@
- <div class="card">
-     <div class="card-body">
-         <img src="/static/images/default-profile-img.jpg" width="40" height="40" class="rounded-circle">
-         <span class="d-none d-sm-inline mx-2" id ="profile-card-username">{{profile_owner.username}}</span>
-         <!-- Add friend button -->
-         <form action="/add-friend/{{ profile_owner.username }}" method="POST">
-            <button type="submit" class="btn btn-primary">Add friend</button>
-        </form>
-     </div>
- </div>
+<div class="card border-0 border-top border-bottom rounded-0">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-8">
+                {% with filename = profile_owner.username %}
+                    {% include "/partials/profile-image.html" %}
+                {% endwith %}
+                <p class="d-inline post-username-text mx-2">
+                    <span style="font-weight: 550">{{ profile_owner.display_name }}</span>
+                    <span style="color:gray">@{{ profile_owner.username }}</span>
+                </p>
+            </div>
+            <div class="col-4">
+                {% if current_user.username != profile_owner.username %}
+                    {% if profile_owner not in friends %}
+                        <!-- Add friend button -->
+                        <form action="/add-friend/{{ profile_owner.username }}" method="POST">
+                            <button type="submit" class="btn-sm mt-2 btn-primary">Add friend</button>
+                        </form>
+                    {% endif %}
+                    {% if profile_owner in friends %}
+                    <!-- Remove friend button -->
+                    <form action="/remove-friend/{{ profile_owner.username }}" method="POST">
+                        <button type="submit" class="btn-sm btn-primary mt-2">Remove friend</button>
+                    </form>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

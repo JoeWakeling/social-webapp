@@ -22,31 +22,31 @@
     <div class="container-fluid">
         <div class="row">
 
-            <div class="col-md-1 d-none d-md-block bg-white"></div>
+            <div class="col-lg-1 bg-white"></div>
 
-            <nav class="col-md-2 d-none d-md-block bg-light">
+            <nav class="col-auto bg-light">
                 <div class="sticky-top p-2 vh-100">
                     {% include "/partials/nav.html" %}
-                    <div class="col-bottom p-2">
+                    <div class="p-2" id="profile-menu">
                         {% include "/cards/profile-menu.html" %}
                     </div>
                 </div>
             </nav>
 
-            <main class="col-md-5 d-none d-md-block bg-light p-2">
-                <h4>{{  content_heading }}</h4>
+            <main class="col bg-light border-start border-end px-0 py-3">
+                <h4 class="px-3">{{ content_heading }}</h4>
                 {% block content %}
                 {% endblock content %}
             </main>
 
-            <footer class="col-md-3 d-none d-md-block bg-light">
+            <footer class="col-md-3 d-none d-sm-block bg-light">
                 <div class="sticky-top p-2">
                     {% include "/cards/login.html" %}
                     {% include "/partials/footer-links.html" %}
                 </div>
             </footer>
 
-            <div class="col-md-1 d-none d-md-block bg-white"></div>
+            <div class="col-lg-1 bg-white"></div>
         </div>
     </div>
 
@@ -64,7 +64,7 @@
             integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
             crossorigin="anonymous"></script>
     <!-- JS for navbar -->
-    <script src="/static/js/nav.js"></script>
+    <script src="/static/js/base.js"></script>
     <!-- JS for authentication -->
     <script src="/static/js/auth.js"></script>
 </body>

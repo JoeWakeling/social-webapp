@@ -1,15 +1,47 @@
-.nav-link {
-    margin-top: 15px;
-    padding-left: 0px;
+/* Text areas */
+.text-area {
+    resize: none;
+    overflow:hidden;
+    min-height:100%;
+}
+.text-area:focus {
+    outline:none;
+    box-shadow: none;
 }
 
-.navbar-text {
-    font-size: 1.5em;
+/* Anchors */
+a:hover, a:visited, a:link, a:active{
+    text-decoration: none;
+}
+
+/* Navigation column */
+.navbar-brand {
+    font-size: 1.45em;
     color: black;
     vertical-align: middle;
 }
 
-.col-bottom {
+.nav-link {
+    margin-top: 15px;
+    padding-left: 0px;
+}
+.navbar-text {
+    font-size: 1.45em;
+    color: black;
+    vertical-align: middle;
+}
+#profile-menu {
   position: absolute;
   bottom: 0;
+}
+.profile-menu-text {
+    font-size: 1em;
+    color: black;
+    vertical-align: middle;
+}
+
+/* Posts */
+.post-username-text {
+    font-size: 1.25em;
+    color: black;
 }

@@ -1,14 +1,20 @@
-<div class="card-header-pills dropup auth-requiredr">
-    <a href="#" class="d-flex align-items-center dropdown-toggle" data-bs-toggle="dropdown">
-        <img src="/static/images/default-profile-img.jpg" width="50" height="50" class="rounded-circle">
-        <span class="d-none d-sm-inline navbar-text mx-3" id="profile-card-username">{{ username }}</span>
+<div class="card-header-pills dropup auth-required">
+    <a href="#" class="d-flex align-items-center dropdown-toggle"
+       data-bs-toggle="dropdown" style="color: black">
+        <img src="/static/assets/profile-imgs/{{ current_user.username }}.jpg"
+             width="38" height="38" alt="Profile Image" class="rounded-circle profile-img">
+        <p class="profile-menu-text d-none d-lg-inline mx-2 my-1" id="profile-card-username">
+            {{ current_user.display_name }}
+            <br>
+            <span style="color:gray"> @{{ current_user.username }}</span>
+        </p>
     </a>
     <ul class="dropdown-menu text-small">
         <li>
             <a class="dropdown-item" href="/profile">Profile</a>
         </li>
         <li>
-            <a class="dropdown-item" href="#">Settings</a>
+            <a class="dropdown-item" href="/settings">Settings</a>
         </li>
         <li>
             <hr class="dropdown-divider">

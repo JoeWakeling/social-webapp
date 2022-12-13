@@ -4,6 +4,10 @@
     <!-- Display profile card -->
     {% include "/cards/profile.html" %}
 
+    <br>
+
+    <h4 class="px-3">Posts by {{ profile_owner.display_name }}</h4>
+
     <!-- Display card for each of the profile owner's post passed in render_template(posts=posts) -->
     {%  for post in posts %}
         {% include "/cards/post.html" %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <!-- Change profile picture -->
+    <div class="card border-0 my-2">
+        <div class="card-body">
+            <div class="mb-4">
+                <label for="change-pfp" class="form-label">Change profile picture</label>
+                <form action="/upload_file" method="POST" enctype="multipart/form-data" id="change-pfp-form">
+                    <div class="input-group">
+                        <input type="file" class="form-control" name="file"/>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </form>
+            </div>
+            <!-- Change display name -->
+            <div class="mb-4">
+                <label for="change-display-name-form" class="form-label">Change display name</label>
+                <form action="/change_display_name" method="POST" id="change-display-name-form">
+                    <div class="input-group">
+                        <!-- New display name input box -->
+                        <input type="text" id="change_display_name" name="change_display_name"
+                               class="form-control" placeholder="New display name"/>
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </form>
+            </div>
+            <!-- Change password -->
+            <div class="mb-4">
+                <label for="change-password-form" class="form-label">Change password</label>
+                <form action="/change_password" method="POST" id="change-password-form">
+                    <div class="input-group">
+                        <!-- New display name input box -->
+                        <input type="password" id="change_password" name="change_password"
+                               class="form-control" placeholder="New password"/>
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Dark/light mode toggle -->
+
+{% endblock content %}

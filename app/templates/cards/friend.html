@@ -1,0 +1,23 @@
+<div class="card border-0 border-top border-bottom rounded-0">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-8">
+                <a href="/profile/{{ friend.username }}">
+                    {% with filename = friend.username %}
+                        {% include "/partials/profile-image.html" %}
+                    {% endwith %}
+                    <p class="post-username-text d-inline mx-2">
+                        <span style="font-weight: 550">{{ friend.display_name }}</span>
+                        <span style="color:gray">@{{ friend.username }}</span>
+                    </p>
+                </a>
+            </div>
+            <div class="col-4">
+                <!-- Remove friend button -->
+                 <form action="/remove-friend/{{ friend.username }}" method="POST">
+                    <button type="submit" class="btn-sm btn-primary mt-2">Remove friend</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
