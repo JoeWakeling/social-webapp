@@ -1,16 +1,18 @@
 <div class="card not-auth-required">
     <div class="card-body">
-            <form action="/login" method="POST">
+        <form action="/login" method="POST">
             <!-- Username-->
-            <input type="text" id="username" name="username" class="form-control" placeholder="Username" /=-      11        1           >
+            <label for="username" class="form-label">Username</label>
+            <input type="text" id="username" name="username" class="form-control mb-2" placeholder="Enter username">
             <!-- Password -->
-            <input type="password" id="password" name="password" class="form-control" placeholder="Password"/>
+            <label for="password" class="form-label">Password</label>
+            <input type="password" id="password" name="password" class="form-control mb-3" placeholder="Enter password"/>
             <!-- Submit button -->
-            <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+            <button type="submit" class="btn btn-primary btn-block mb-3">Sign in</button>
             <!-- Register button -->
             <p>Don't have an account?
-                <button type="button" class="btn btn-block" data-bs-toggle="modal" data-bs-target="#signup-modal">
-                    Register
+                <button type="button" class="btn btn-block d-inline" data-bs-toggle="modal" data-bs-target="#signup-modal">
+                    <span style="color: blue; text-decoration: underline">Register.</span>
                 </button>
             </p>
         </form>

@@ -36,6 +36,7 @@ def signup():
         # Signup failed, return false
         return "Signup failed"
 
+
 # Route to handle user login
 @app.route("/login", methods=["GET", "POST"])
 def login():

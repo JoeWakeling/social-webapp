@@ -20,7 +20,6 @@ a:hover, a:visited, a:link, a:active{
     color: black;
     vertical-align: middle;
 }
-
 .nav-link {
     margin-top: 15px;
     padding-left: 0px;
@@ -29,6 +28,10 @@ a:hover, a:visited, a:link, a:active{
     font-size: 1.45em;
     color: black;
     vertical-align: middle;
+}
+#login-button {
+  position: absolute;
+  bottom: 0;
 }
 #profile-menu {
   position: absolute;

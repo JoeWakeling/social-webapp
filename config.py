@@ -8,7 +8,6 @@ MAX_CONTENT_LENGTH = 1024 * 1024
 # Enable CSRF protection
 WTF_CSRF_ENABLED = True
 SECRET_KEY = '0zickgICiLIgQlgBlemFSY9sll8HOd3e'
-SESSION_COOKIE_SECURE = True
 
 # SQLite config
 basedir = os.path.abspath(os.path.dirname(__file__))

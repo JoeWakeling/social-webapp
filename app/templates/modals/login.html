@@ -1,11 +1,11 @@
-<div class="modal fade" id="signup-modal" tabindex="-1">
+<div class="modal fade" id="login-modal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body border-bottom">
-                <h4>Sign up</h4>
+                <h4>Sign in</h4>
             </div>
             <div class="modal-body">
-                <form action="/signup" method="POST">
+                <form action="/login" method="POST">
                     <!-- Username-->
                     <label for="username" class="form-label">Username</label>
                     <div class="input-group mb-2">
@@ -18,14 +18,8 @@
                         <input type="password" id="password" name="password"
                                class="form-control" placeholder="Enter password"/>
                     </div>
-                    <!-- Display name -->
-                    <label for="display_name" class="form-label">Display name</label>
-                    <div class="input-group">
-                        <input type="text" id="display_name" name="display_name"
-                               class="form-control" placeholder="Enter display name"/>
-                    </div>
                     <!-- Submit button -->
-                    <button type="submit" class="btn btn-primary btn-block mt-3">Sign up</button>
+                    <button type="submit" class="btn btn-primary btn-block mt-3">Sign in</button>
                 </form>
             </div>
         </div>
