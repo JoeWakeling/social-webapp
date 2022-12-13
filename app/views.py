@@ -16,7 +16,11 @@ def signup():
     display_name = request.form["display_name"]
     # Query db to check if username taken
     user = models.User.query.filter_by(username=username).first()
-    if user is None:
+    if user is not None:
+        # Username taken, log and return false
+        app.logger.warning("Failed signup (username taken), username: " + username)
+        return "Signup failed"
+    else:
         # Username not taken, generate a random 16 char hex salt
         salt = secrets.token_hex(8)
         # Salt & hash password
@@ -30,11 +34,9 @@ def signup():
         # Add and Commit new user to database
         db.session.add(new_user)
         db.session.commit()
-        # Signup successful, redirect to home
+        # Signup successful, log signup & redirect to home
+        app.logger.info("Successful signup, username: " + username)
         return redirect("/home", code=302)
-    else:
-        # Signup failed, return false
-        return "Signup failed"
 
 
 # Route to handle user login
@@ -45,30 +47,35 @@ def login():
     password = request.form.get("password")
     # Query db w/ username
     user = models.User.query.filter_by(username=username).first()
-    if user is not None:
+    if user is None:
+        # Username not found
+        app.logger.warning("Failed login (username not found), username: " + username)
+        return "Login failed"
+    else:
         # Hash and salt inputted password
         h = hashlib.sha512()
         h.update(bytes.fromhex(user.salt))
         h.update(password.encode("utf-8"))
         hashed_password = h.hexdigest()
-        if user.check_password(hashed_password):
-            login_user(user)
-            # Login successful, redirect to home
-            return redirect("/home", code=302)
-        else:
-            # Password incorrect
+        if not user.check_password(hashed_password):
+            # Password incorrect, log & return false
+            app.logger.warning("Failed login (incorrect password), username: " + username)
             return "Login failed"
-    else:
-        # Username not found
-        return "Login failed"
+        else:
+            login_user(user)
+            # Login successful, log & redirect to home
+            app.logger.info("Successful login, username: " + username)
+            return redirect("/home", code=302)
 
 
 # Route to handle user logout
 @app.route("/logout")
 @login_required
 def logout():
+    username = current_user.username
     logout_user()
-    # Logout successful, redirect to home
+    # Logout successful, log & redirect to home
+    app.logger.info("Successful logout, username: " + username)
     return redirect("/explore", code=302)
 
 
@@ -92,7 +99,9 @@ def change_display_name():
     display_name = request.form["change_display_name"]
     current_user.display_name = display_name
     db.session.commit()
-    # Name change successful, refresh settings page
+    # Display name change successful, log & refresh settings page
+    app.logger.info("Successful display name change, username: " + current_user.username +
+                    ", new display name: " + current_user.display_name)
     return redirect("/settings", code=302)
 
 
@@ -109,7 +118,8 @@ def change_password():
     hashed_new_password = h.hexdigest()
     current_user.password = hashed_new_password
     db.session.commit()
-    # Name change successful, refresh settings page
+    # Name change successful, log & refresh settings page
+    app.logger.info("Successful password change, username: " + current_user.username)
     return redirect("/settings", code=302)
 
 
@@ -120,12 +130,17 @@ def add_friend(new_friend_username):
     # Get user object of new friend
     new_friend = models.User.query.filter_by(username=new_friend_username).first()
     if new_friend is None:
-        # Invalid new friend username
+        # Invalid new friend username, log & return false
+        app.logger.warning("Failed friend add (friend not found)" +
+                           "username: " + current_user.username + " friend: " + new_friend_username)
         return "User to add as friend not found"
     else:
         # User found, add friendship to database
         current_user.friends.append(new_friend)
         db.session.commit()
+        # Successfully added friend, log and redirect to friends profile
+        app.logger.info("Successful friend add," +
+                        "username: " + current_user.username + " friend: " + new_friend_username)
         return redirect("/profile/" + new_friend_username, code=302)
 
 
@@ -136,45 +151,46 @@ def remove_friend(friend_username):
     # Get user object of new friend
     friend = models.User.query.filter_by(username=friend_username).first()
     if friend is None:
-        # Invalid friend to remove
+        # Invalid remove friend username, log & return false
+        app.logger.warning("Failed friend remove (friend not found)" +
+                           "username: " + current_user.username + " friend: " + friend_username)
         return "User to remove as friend not found"
     else:
         # User found, remove friendship from database
         db.session.delete(models.Friendship.query.filter_by(user1_id=current_user.id, user2_id=friend.id).first())
         db.session.commit()
+        # Successfully removed friend, log and redirect friends profile
+        app.logger.info("Successful friend remove," +
+                        "username: " + current_user.username + " friend: " + friend_username)
         return redirect("/friends", code=302)
 
 
-# Function to check if users file upload is a valid file type
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in {"png, jpg, jpeg, gif"}
-
-
-# Route to handle user file uploads
+# Route to handle user changing profile picture
 @app.route('/upload_file', methods=['GET', 'POST'])
 @login_required
 def upload_file():
-    # check if the post request has the file part
+    # check if the post request has a file
     if 'file' not in request.files:
-        flash('No file part')
-        return redirect(request.url)
+        flash('No file uploaded')
+        return redirect("/settings")
     file = request.files['file']
     # If the user does not select a file, the browser submits an empty file without a filename.
     if file.filename == '':
         flash('No selected file')
-        return redirect(request.url)
-    if file:  # validate file type
+        return redirect("/settings")
+    if not file:
+        return redirect("/settings")
+    else:
         upload_directory = os.path.join(app.root_path, "static/assets/profile-imgs/")
         # check if the directory exists
         if not os.path.exists(upload_directory):
             # create the directory
             os.makedirs(upload_directory)
-
         file_extension = file.filename.rsplit('.', 1)[1].lower()
         file.save(upload_directory + current_user.username + '.' + file_extension)
+        # Successfully changed pfp, log & refresh settings page
+        app.logger.info("Successful pfp change, username: " + current_user.username)
         return redirect("/settings")
-    return redirect("/settings")
 
 
 # Route to handle user posting
@@ -189,6 +205,8 @@ def post():
     db.session.add(new_post)
     db.session.commit()
     # New post saved to db, redirect to home
+    app.logger.info("Successful post, " +
+                    "username: " + current_user.username + "post_id:" + post.id)
     return redirect("/home", code=302)
 
 
@@ -288,7 +306,6 @@ def profile(profile_owner_username):
 # Route to display settings page
 @app.route("/settings")
 def settings():
-    username = current_user.username if current_user.is_authenticated else ""
     return render_template("settings.html",
                            title="Settings",
                            content_heading="Your settings",

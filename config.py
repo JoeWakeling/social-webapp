@@ -4,7 +4,6 @@ import os
 ALLOWED_EXTENSIONS = {"png, jpg, jpeg, gif"}
 MAX_CONTENT_LENGTH = 1024 * 1024
 
-
 # Enable CSRF protection
 WTF_CSRF_ENABLED = True
 SECRET_KEY = '0zickgICiLIgQlgBlemFSY9sll8HOd3e'

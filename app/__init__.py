@@ -1,4 +1,4 @@
-import os
+import logging
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -24,6 +24,11 @@ login_manager.login_view = "/explore"
 login_manager.refresh_view = "/explore"
 # If hash of IP and useragent doesn't match hash of previous requests, delete session
 login_manager.session_protection = "strong"
+
+# Configure logging to app.log file
+logging.basicConfig(filename=app.root_path + "/app.log",
+                    level=logging.DEBUG,
+                    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 
 # Import views module for dynamic content & models module for database
 from app import views, models
