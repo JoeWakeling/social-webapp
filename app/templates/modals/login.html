@@ -5,22 +5,7 @@
                 <h4>Sign in</h4>
             </div>
             <div class="modal-body">
-                <form action="/login" method="POST">
-                    <!-- Username-->
-                    <label for="username" class="form-label">Username</label>
-                    <div class="input-group mb-2">
-                        <input type="text" id="username" name="username"
-                               class="form-control" placeholder="Enter username"/>
-                    </div>
-                    <!-- Password -->
-                    <label for="password" class="form-label">Password</label>
-                    <div class="input-group mb-2">
-                        <input type="password" id="password" name="password"
-                               class="form-control" placeholder="Enter password"/>
-                    </div>
-                    <!-- Submit button -->
-                    <button type="submit" class="btn btn-primary btn-block mt-3">Sign in</button>
-                </form>
+                {% include "/forms/login.html" %}
             </div>
         </div>
     </div>

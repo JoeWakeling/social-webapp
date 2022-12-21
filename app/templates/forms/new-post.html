@@ -1,0 +1,8 @@
+<form class="border rounded clearfix" method="POST" action="/new_post">
+    {{ new_post_form.csrf_token }}
+    <!-- Post text area -->
+    {{ new_post_form.body(class_="text-area form-control bg border-0", id="post-body",
+                  onkeyup="setHeight('post-body')", placeholder="Type your post here:") }}
+    <!-- Submit button -->
+    <button type="submit" class="btn btn-primary float-end py-1 px-2 m-2">Post</button>
+</form>

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <!-- Display card for every post passed in render_template(posts=posts) -->
+    {%  for post in posts %}
+        {% include "/cards/post.html" %}
+    {% endfor %}
+
+    {% include "/modals/signup.html" %}
+    {% include "/modals/login.html" %}
+
+{% endblock content %}

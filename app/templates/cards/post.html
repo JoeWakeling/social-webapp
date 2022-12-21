@@ -1,4 +1,4 @@
-<div class="card border-0 border-bottom rounded-0">
+<div class="card bg border-0 border-bottom border-top rounded-0">
     <div class="card-body">
         <div class="row">
             <div class="col-2 text-center">
@@ -9,13 +9,11 @@
             </div>
             <div class="col-10">
                 <a class="m-0" href="/profile/{{ post.username }}">
-                    <p class="post-username-text">
-                        <span style="font-weight: 550">{{ post.display_name }}</span>
-                        <span style="font-size: 0.8em; color:gray">@{{ post.username }} · </span>
-                        <span style="font-size: 0.7em; color:gray">{{ post.time_posted.strftime("%d/%m/%Y %H:%M") }}</span>
-                    </p>
+                    <span class="text-displayname">{{ post.display_name }}</span>
+                    <span class="text-username">@{{ post.username }} · </span>
+                    <span class="text-timeposted">{{ post.time_posted.strftime("%d/%m/%Y %H:%M") }}</span>
                 </a>
-                <p style="font-size: 1.2em">{{ post.body }}</p>
+                <p class="text-post-body">{{ post.body }}</p>
             </div>
         </div>
     </div>

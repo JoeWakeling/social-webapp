@@ -1,0 +1,20 @@
+<div class="card bg">
+    <div class="card-header bg">
+        <h1 class="text-navlink">Featured users</h1>
+    </div>
+    <div class="card-body bg">
+        {% for featured_user in featured_users %}
+            <div class="mb-3">
+                <a href="/profile/{{ featured_user.username }}">
+                    {% with filename = featured_user.username %}
+                        {% include "/partials/profile-image.html" %}
+                    {% endwith %}
+                    <p class="d-inline mx-2">
+                        <span class="text-displayname-sm d-none d-md-inline">{{ featured_user.display_name }}</span>
+                        <span class="text-username d-none d-lg-inline">@{{ featured_user.username }}</span>
+                    </p>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>

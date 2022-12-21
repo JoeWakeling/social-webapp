@@ -6,12 +6,13 @@ from datetime import datetime
 class User(UserMixin, db.Model):
     # Table for user accounts & profiles
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
+    username = db.Column(db.String(16), unique=True, nullable=False)
     # SHA-512 hash represented as 128 hex chars
-    password = db.Column(db.String(128), nullable=False)
+    password = db.Column(db.String(32), nullable=False)
     # Salt to prevent rainbow table attacks represented as 16 hex chars
     salt = db.Column(db.String(16), nullable=False)
-    display_name = db.Column(db.String(80), nullable=False)
+    display_name = db.Column(db.String(16), nullable=False)
+    theme = db.Column(db.String(16))
     active = db.Column(db.Boolean, nullable=False, default=True)
     posts = db.relationship("Post", backref="user", lazy="dynamic")
     friends = db.relationship(  # friendship many-to-many relationship betwen users
@@ -42,4 +43,4 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     poster_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     time_posted = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
-    body = db.Column(db.String(300), nullable=False)
+    body = db.Column(db.String(1024), nullable=False)

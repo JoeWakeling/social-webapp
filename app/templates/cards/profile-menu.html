@@ -1,12 +1,12 @@
-<div class="card-header-pills dropup auth-required">
-    <a href="#" class="d-flex align-items-center dropdown-toggle"
-       data-bs-toggle="dropdown" style="color: black">
+<div class="card-header-pills dropup bg">
+    <a href="#" class="dropdown-toggle d-flex align-items-center"
+       id="profile-menu-toggler" data-bs-toggle="dropdown">
         <img src="/static/assets/profile-imgs/{{ current_user.username }}.jpg"
-             width="38" height="38" alt="Profile Image" class="rounded-circle profile-img">
-        <p class="profile-menu-text d-none d-lg-inline mx-2 my-1" id="profile-card-username">
-            {{ current_user.display_name }}
+             width="38" height="38" alt="Your profile Image" class="rounded-circle profile-img">
+        <p class="d-none d-lg-inline mx-2 my-1">
+            <span class="text-displayname-sm">{{ current_user.display_name }}</span>
             <br>
-            <span style="color:gray"> @{{ current_user.username }}</span>
+            <span class="text-username">@{{ current_user.username }}</span>
         </p>
     </a>
     <ul class="dropdown-menu text-small">
@@ -20,7 +20,7 @@
             <hr class="dropdown-divider">
         </li>
         <li>
-            <a class="dropdown-item" href="/logout">Sign out</a>
+            <a class="dropdown-item" href="/logout" methods="POST">Sign out</a>
         </li>
     </ul>
 </div>

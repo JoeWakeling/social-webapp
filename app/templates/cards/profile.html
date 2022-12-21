@@ -1,14 +1,12 @@
-<div class="card border-0 border-top border-bottom rounded-0">
+<div class="card bg border-0 border-top border-bottom rounded-0">
     <div class="card-body">
         <div class="row">
             <div class="col-8">
                 {% with filename = profile_owner.username %}
                     {% include "/partials/profile-image.html" %}
                 {% endwith %}
-                <p class="d-inline post-username-text mx-2">
-                    <span style="font-weight: 550">{{ profile_owner.display_name }}</span>
-                    <span style="color:gray">@{{ profile_owner.username }}</span>
-                </p>
+                    <span class="text-displayname ms-3">{{ profile_owner.display_name }}</span>
+                    <span class="text-username">@{{ profile_owner.username }}</span>
             </div>
             <div class="col-4">
                 {% if current_user.username != profile_owner.username %}
