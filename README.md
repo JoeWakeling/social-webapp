@@ -1,1 +1,1 @@
-# social-webapp
+# Social media web app using flask & bootstrap.
